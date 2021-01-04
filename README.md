@@ -1,6 +1,6 @@
 # ilovepdfbot
 
-[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://t.me/pdfbot)
+[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-blue.svg)](https://t.me/i_love_pdf_bot)
 
 A telegram bot which offers you all features of [ilovepdf](https://www.ilovepdf.com/)!
 

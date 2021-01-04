@@ -25,6 +25,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # edit .env file and add the telegram bot token
 # and ilovepdf api key
+mkdir tmp
 python bot.py
 ```
 

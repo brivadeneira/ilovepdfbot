@@ -1,4 +1,6 @@
 import os
+
+from dotenv import load_dotenv
 from pylovepdf.ilovepdf import ILovePdf
 from pylovepdf.tools.imagetopdf import ImageToPdf
 from pylovepdf.tools.merge import Merge
@@ -11,7 +13,6 @@ from pylovepdf.tools.rotate import Rotate
 from pylovepdf.tools.split import Split
 from pylovepdf.tools.unlock import Unlock
 from pylovepdf.tools.watermark import Watermark
-from dotenv import load_dotenv
 
 load_dotenv()
 public_key = os.getenv('PUBLIC_KEY')

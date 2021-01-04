@@ -27,3 +27,13 @@ cp .env.example .env
 # and ilovepdf api key
 python bot.py
 ```
+
+## Comments
+
+ilovepdfbot is alive thanks to:
+- @AndyCyberSec
+- @tgrandje
+- @MarkHaakman
+- @oscar6echo
+
+who made [pylovepdf](https://github.com/AndyCyberSec/pylovepdf)

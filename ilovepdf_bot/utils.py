@@ -41,7 +41,7 @@ def is_too_large(usr_file: str) -> bool:
         return False
 
 
-def usr_msg(update, msg='', error=True) -> None:
+def usr_msg(update, msg: str = '', error: bool = True) -> None:
     """
     Send an (undefined) error message to the user
     :param msg: (str) to show to the user

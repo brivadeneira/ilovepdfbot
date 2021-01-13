@@ -144,7 +144,7 @@ def love_protect(file_path: str, password: str, output_dir: str) -> None:
     love_execute_task(task, output_dir)
 
 
-def love_rotate(file_path: str, output_dir: str, rot=90) -> None:
+def love_rotate(file_path: str, output_dir: str, rot: int = 90) -> None:
     """
     Rotate a PDF file and save the result in output_dir folder
     :param rot: (int) angle to rotate the PDF file

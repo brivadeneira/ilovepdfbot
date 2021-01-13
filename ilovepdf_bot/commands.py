@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from telegram import ChatAction
 from telegram.ext import CommandHandler, ConversationHandler, MessageHandler
 from telegram.ext.dispatcher import run_async
+from telegram.ext.filters import Filters
 
 from .constants import *
 from .ilovepdf import (love_addpagenumbers, love_compress, love_imgtopdf,
@@ -369,8 +370,9 @@ def addpagenumbers_handler():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("addpagenumbers", addpagenumbers)],
         states={
-            WAIT_ADDNUMBERS: [MessageHandler(Filters.document, add_page_numbers),
-                              MessageHandler(not_doc_filter, error_pagesnumber)],
+            WAIT_ADDNUMBERS: [
+                MessageHandler(Filters.document, add_page_numbers),
+                MessageHandler(not_doc_filter, error_pagesnumber)],
         },
         fallbacks=[
             CommandHandler("cancel", cancel_without_async)

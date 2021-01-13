@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from dotenv import load_dotenv
 from pylovepdf.ilovepdf import ILovePdf
@@ -19,7 +20,7 @@ public_key = os.getenv('PUBLIC_KEY')
 ilovepdf = ILovePdf(public_key, verify_ssl=True)
 
 
-def love_execute_task(task, file_path):
+def love_execute_task(task, file_path: str) -> None:
     """
     Execute common lines of ilovepdf tasks
     """
@@ -29,7 +30,7 @@ def love_execute_task(task, file_path):
     task.delete_current_task()
 
 
-def love_compress(file_path):
+def love_compress(file_path: str) -> None:
     """
     Compress a PDF file and save the result in file_path folder
     :param file_path: (str) without extension
@@ -41,7 +42,7 @@ def love_compress(file_path):
     love_execute_task(task, file_path)
 
 
-def love_imgtopdf(file_path):
+def love_imgtopdf(file_path: str) -> None:
     """
     Convert an image to a PDF file and save the result in file_id folder
     :param file_path: (str) without extension
@@ -57,7 +58,10 @@ def love_imgtopdf(file_path):
     love_execute_task(task, file_path)
 
 
-def love_merge(files, output_dir):
+Files = List[str]
+
+
+def love_merge(files: Files, output_dir: str) -> None:
     """
     Merge two or more PDF files and save the result in output_dir folder
     :param files: (list) of each PDF file paths.
@@ -72,7 +76,7 @@ def love_merge(files, output_dir):
     love_execute_task(task, output_dir)
 
 
-def love_officetopdf(file_path, output_dir):
+def love_officetopdf(file_path: str, output_dir: str) -> None:
     """
     Convert one or more Office files and save the result in output_dir folder
     (if more than one office file is converted, the result will be a zip file)
@@ -85,7 +89,7 @@ def love_officetopdf(file_path, output_dir):
     love_execute_task(task, output_dir)
 
 
-def love_addpagenumbers(file_path):
+def love_addpagenumbers(file_path: str) -> None:
     """
     Add page numbers to a PDF file and save the result in file_path folder
     :param file_path: (str) without extension
@@ -97,7 +101,7 @@ def love_addpagenumbers(file_path):
     love_execute_task(task, file_path)
 
 
-def love_pdfa(file_path):
+def love_pdfa(file_path: str) -> None:
     """
     Convert a PDF file to PDF/A (the ISO-standardized version)
     and save the result in file_path folder
@@ -110,7 +114,7 @@ def love_pdfa(file_path):
     love_execute_task(task, file_path)
 
 
-def love_pdftojpg(file_path):
+def love_pdftojpg(file_path: str) -> None:
     """
     Convert a PDF file to PDF/A (the ISO-standardized version)
     and save the result in file_path folder
@@ -124,7 +128,7 @@ def love_pdftojpg(file_path):
     love_execute_task(task, file_path)
 
 
-def love_protect(file_path, password, output_dir):
+def love_protect(file_path: str, password: str, output_dir: str) -> None:
     """
     Protect a PDF file with a password
     and save the result in output_dir folder
@@ -140,7 +144,7 @@ def love_protect(file_path, password, output_dir):
     love_execute_task(task, output_dir)
 
 
-def love_rotate(file_path, output_dir, rot=90, ):
+def love_rotate(file_path: str, output_dir: str, rot=90) -> None:
     """
     Rotate a PDF file and save the result in output_dir folder
     :param rot: (int) angle to rotate the PDF file
@@ -155,7 +159,7 @@ def love_rotate(file_path, output_dir, rot=90, ):
     love_execute_task(task, output_dir)
 
 
-def love_split(file_path, output_dir, range=1, ):
+def love_split(file_path: str, output_dir: str, range=1):
     """
     Rotate a PDF file and save the result in output_dir folder
     :param range: (int) of split the PDF file
@@ -171,7 +175,7 @@ def love_split(file_path, output_dir, range=1, ):
     love_execute_task(task, output_dir)
 
 
-def love_unlock(file_path, output_dir):
+def love_unlock(file_path: str, output_dir: str) -> None:
     """
     Rotate a PDF file and save the result in output_dir folder
     :param file_path: (str) without extension
@@ -184,7 +188,7 @@ def love_unlock(file_path, output_dir):
     love_execute_task(task, output_dir)
 
 
-def love_watermark(file_path, output_dir, text):
+def love_watermark(file_path: str, output_dir: str, text: str) -> None:
     """
     Embed a watermark to a PDF file and save the result in output_dir folder
     :param text: (str) of watermark

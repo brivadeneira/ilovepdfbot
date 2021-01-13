@@ -1,12 +1,13 @@
 import os
 import shutil
 import zipfile
+from typing import List, Union
 
 from telegram import ParseMode, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.constants import MAX_FILESIZE_DOWNLOAD
 
 
-def ask_file(update, msg, const_state):
+def ask_file(update: str, msg: str, const_state: int) -> int:
     """
     Show a message asking a file or cancel button
 
@@ -27,7 +28,7 @@ def ask_file(update, msg, const_state):
     return const_state
 
 
-def is_too_large(usr_file):
+def is_too_large(usr_file: str) -> bool:
     """
     Return True is the file is higher than the max allowed,
     False otherwise.
@@ -40,12 +41,13 @@ def is_too_large(usr_file):
         return False
 
 
-def usr_msg(update, msg='', error=True):
+def usr_msg(update, msg='', error=True) -> None:
     """
     Send an (undefined) error message to the user
     :param msg: (str) to show to the user
     :param error: (bool) If True, send a generic error message to the user
     :param update: (telegram.update.Update) the update object
+    :return: None
     """
     if error:
         update.effective_message.reply_text(
@@ -61,7 +63,7 @@ def usr_msg(update, msg='', error=True):
         )
 
 
-def status_usr_msg(update, status='ok', obj='PDF file'):
+def status_usr_msg(update, status='ok', obj='PDF file') -> None:
     """
     Send a message to the user according to the status and obj
     :param update: (telegram.update.Update) the update object
@@ -91,11 +93,12 @@ def status_usr_msg(update, status='ok', obj='PDF file'):
         )
 
 
-def bye(update):
+def bye(update) -> None:
     """
     Remove files an directories created during process,
     and send a bye message to the user.
     :param update: (telegram.update.Update) the update object
+    :return: None
     """
     update.effective_message.reply_text(
         "Thank you, see you soon! 👋",
@@ -103,7 +106,7 @@ def bye(update):
     )
 
 
-def del_tmp():
+def del_tmp() -> None:
     """
     Remove tmp file content
     :return: None
@@ -116,7 +119,7 @@ def del_tmp():
             shutil.rmtree(path)
 
 
-def file_ok(update, usr_file, ext=('pdf',), obj='PDF file', send_msg=True):
+def file_ok(update, usr_file, ext=('pdf',), obj='PDF file', send_msg=True) -> str:
     """
     Check a usr file, send ok, too_large or invalid message
     :param obj: (str) type of object, e.g. 'PDF file' or 'image'
@@ -158,7 +161,8 @@ def img_ok(update, send_msg=True):
     False otherwise.
     :param update: (telegram.update.Update) the update object
     :param send_msg: (bool) if True, send a message
-    :return: (telegram.files.photosize.PhotoSize or telegram.files.document.Document)
+    :return: (telegram.files.photosize.PhotoSize
+    or telegram.files.document.Document)
     if user document/foto is valid, None otherwise
     """
     if update.message.document:
@@ -180,7 +184,7 @@ def img_ok(update, send_msg=True):
     return img
 
 
-def result_file(file_path):
+def result_file(file_path: str) -> Union[str, None]:
     """
     Return a file path if it and the file_path directory exist
     :param file_path: (str) where should be the file (e.g. ./tmp/file_id)
@@ -200,7 +204,10 @@ def result_file(file_path):
             return file_list[0]
 
 
-def unzip_file(zip_path, output_dir):
+UnzipFiles = List[str]
+
+
+def unzip_file(zip_path: str, output_dir: str) -> UnzipFiles:
     """
     Return a list of each file paths after unzip
     :param output_dir: (str) where files will be saved

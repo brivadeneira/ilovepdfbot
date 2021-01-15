@@ -62,6 +62,8 @@ def compress_pdf(update, context):
         else:
             usr_msg(update)
         bye(update)
+    else:
+        compress(update, context)
     del_tmp()
     return ConversationHandler.END
 
@@ -114,17 +116,20 @@ def check_img(update, context):
     the context object
     :return: (int) WAIT_MERGE constant according to handler state
     """
-    if img_ok(update=update, send_msg=False) not in images:
-        img = img_ok(update=update)
+    img = img_ok(update=update)
+    if img:
         file_id = img.file_id
         file_path = f"./tmp/{file_id}"
         usr_file = context.bot.getFile(file_id)
         usr_file.download(f"{file_path}.png")
         images.append(file_path)
-        # convert img to pdf one by one
-        msg = "Send me the word *'done'* if you want the PDF file, " \
-              "or send me more images 🖼"
+
+    msg = "Send me the word *'done'* if you want the PDF file, " \
+            "or send me more images 🖼"
+    if images:
         return ask_file(update, msg, WAIT_IMGTOPDF)
+    else:
+        return imgtopdf(update, context)
 
 
 def check_text(update, context):
@@ -184,24 +189,24 @@ def img_to_pdf(update, images):
         output_dir = f"{last_file_id}-merge"
         if len(images) == 1:
             pdf_file = pdfs[0]
+            if pdf_file:
+                final_file = pdf_file
         else:
             # merge all PDF files
             love_merge(files=pdfs, output_dir=output_dir)
             merged_file = result_file(output_dir)
 
-        if merged_file:
-            final_file = f"{output_dir}/{merged_file}"
-        elif pdf_file:
-            final_file = pdf_file
-        else:
-            usr_msg(update, error=True)
+            if merged_file:
+                final_file = f"{output_dir}/{merged_file}"
+            
         if final_file:
-            usr_msg(update)
             update.effective_message.chat.send_action(
                 ChatAction.UPLOAD_DOCUMENT)
             update.effective_message.reply_document(
                 document=open(final_file, "rb"),
                 caption="✨ Here is your PDF file", )
+        else:
+            usr_msg(update, error=True)
     bye(update)
     del_tmp()
     return ConversationHandler.END
@@ -241,7 +246,7 @@ def officetopdf(update, context):
     office_ext = ('odt', 'doc', 'docx',
                   'ods', 'xls', 'xlsx',
                   'odp', 'ppt', 'pptx')
-    msg = "🗎 Send me an office file you want to convert, please. " \
+    msg = f"📄 Send me an office file you want to convert, please. " \
           f"Extensions allowed are: {', '.join(office_ext)}",
     return ask_file(update, msg, WAIT_OFFICETOPDF)
 
@@ -349,6 +354,8 @@ def add_page_numbers(update, context):
         else:
             usr_msg(update)
         bye(update)
+    else:
+        return addpagenumbers(update, context)
     del_tmp()
     return ConversationHandler.END
 
@@ -492,7 +499,7 @@ def pdf_to_jpg(update, context):
             usr_msg(update=update, msg=msg, error=False)
         else:
             usr_msg(update)
-        bye(update)
+        bye(update)        
     del_tmp()
     return ConversationHandler.END
 
@@ -500,7 +507,7 @@ def pdf_to_jpg(update, context):
 @run_async
 def pdftojpg(update, context):
     msg = "📄 Send me the PDF file you want to convert into jpg images, please"
-    return ask_file(update, msg, WAIT_PDFTOPDFA)
+    return ask_file(update, msg, WAIT_PDFTOJPG)
 
 
 def error_pdftojpg(update, context):
@@ -568,11 +575,21 @@ def check_pass(update, context):
     """
     text = update.effective_message.text
     if text:
-        msg = f"I received the password, please wait a moment while " \
-              f"I protect the file for you..."
-        usr_msg(update=update, msg=msg, error=False)
-        # protect PDF
-        protect_pdf(update, text)
+        if text.lower() == 'cancel':
+            return ConversationHandler.END
+        else:
+            msg = "I received the password"
+            if pdf_to_protect:
+                msg += ", please wait a moment while " \
+                    "I protect the file for you..."
+                usr_msg(update=update, msg=msg, error=False)
+                # protect PDF
+                protect_pdf(update, text)
+            else:
+                msg += ", but I still need the PDF file to protect"
+                usr_msg(update=update, msg=msg, error=False)
+                protectpdf(update, context)
+
 
 
 def protect_pdf(update, password):
@@ -658,7 +675,9 @@ def check_pdf_split(update, context):
         pdf_to_split = f"{file_path}.pdf"
         msg = "Send me the range you want to split the file, please ✂️. " \
               "(e.g. 2 for split 2 pages per file)"
-        return ask_file(update, msg, WAIT_FILE_SPLIT)
+        return ask_file(update, msg, WAIT_RANGE)
+    else:
+        return splitpdf(update, context)
 
 
 def check_range(update, context):
@@ -786,7 +805,7 @@ def check_pdf_rotate(update, context):
         global pdf_to_rotate
         pdf_to_rotate = f"{file_path}.pdf"
         msg = "Send me the rotation angle you want, please ↩️. " \
-              "*Allowed angles are: {' ,'.join(allowed_rot)}.*"
+              f"*Allowed angles are: {' ,'.join(allowed_rot)}.*"
         return ask_file(update, msg, WAIT_ANGLE)
 
 
@@ -968,6 +987,8 @@ def check_pdf_mark(update, context):
         pdf_to_mark = f"{file_path}.pdf"
         msg = "Send me the text you want to apply in the file, please 💧. "
         return ask_file(update, msg, WAIT_TEXT_MARK)
+    else:
+        return watermarkpdf(update, context)
 
 
 def check_text_mark(update, context):
@@ -979,7 +1000,7 @@ def check_text_mark(update, context):
     text = update.effective_message.text
     if text:
         msg = "I received the text, please wait a moment while I apply " \
-              "'{text}' as a watermark for you..."
+              f"'{text}' as a watermark for you..."
         usr_msg(update=update, msg=msg, error=False)
         # apply watermark PDF
         watermark_pdf(update, text)
@@ -1032,14 +1053,15 @@ def error_file_watermark(update, context):
     msg = "That is not a PDF file 😔, try again."
     usr_msg(update=update, msg=msg, error=False)
 
-    return watermark_pdf(update, context)
+    return watermarkpdf(update, context)
 
 
 def error_text_mark(update, context):
     msg = "That is not a valid text to the watermark 😔, try again."
     usr_msg(update=update, msg=msg, error=False)
 
-    return watermark_pdf(update, context)
+    msg = "Send me the text you want to apply in the file, please 💧. "
+    return ask_file(update, msg, WAIT_TEXT_MARK)
 
 
 def watermark_handler():

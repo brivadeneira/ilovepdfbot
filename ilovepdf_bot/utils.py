@@ -71,17 +71,17 @@ def status_usr_msg(update, status='ok', obj='PDF file') -> None:
     :param obj: (str) type of object, e.g. 'PDF file' or 'image'
     :return: None
     """
-    if status is 'ok':
+    if status == 'ok':
         update.effective_message.reply_text(
             f"I received your {obj} correctly 😄",
             reply_markup=ReplyKeyboardRemove()
         )
-    elif status is 'too large':
+    elif status == 'too large':
         update.effective_message.reply_text(
             f"The {obj} you sent is {status} 😔, try again",
             reply_markup=ReplyKeyboardRemove()
         )
-    elif status is 'invalid':
+    elif status == 'invalid':
         update.effective_message.reply_text(
             f"What you sent is not a valid {obj} 😔, try again",
             reply_markup=ReplyKeyboardRemove()
@@ -179,7 +179,7 @@ def img_ok(update, send_msg=True):
                 if send_msg:
                     status_usr_msg(update, 'too large', 'image')
                 img = None
-    if send_msg:
+    if img and send_msg:
         status_usr_msg(update, 'ok', 'image')
     return img
 

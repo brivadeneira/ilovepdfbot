@@ -2,15 +2,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
   
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/brivadeneira/)
 
 # ilovepdfbot
 
-A telegram bot which offers you all features of [ilovepdf](https://www.ilovepdf.com/)!
-
-![](https://www.ilovepdf.com/img/ilovepdf.svg)
+A telegram bot which offers you all features of [ilovepdf](https://www.ilovepdf.com/)!  
+[![](https://github.com/python-telegram-bot/logos/raw/master/logo-text/png/ptb-logo-text_768.png?raw=true)](https://github.com/python-telegram-bot/python-telegram-bot)
+[![](https://www.ilovepdf.com/img/ilovepdf.svg)](https://www.ilovepdf.com)
 
 ![](https://media.giphy.com/media/cEgtvpYoEdPfqEYJs9/giphy.gif)
+
 # Table of contents
 
 * [Features](#features)  
@@ -38,8 +39,8 @@ A telegram bot which offers you all features of [ilovepdf](https://www.ilovepdf.
 
 ### 1. Clone the repository 
 ``` bash
-git clone https://github.com/brivadeneira/ilovepdfbot
-cd ilovepdfbot
+$ git clone https://github.com/brivadeneira/ilovepdfbot
+$ cd ilovepdfbot
 ```
 ### 2. Install the requirements using `pip`
 ``` bash
@@ -47,7 +48,7 @@ pip install -r requirements.txt
 ```
 ### 3. Copy and edit the `.env` file:
 ``` bash
-cp .env.example .env
+$ cp .env.example .env
 ```
 #### 3.1 Get the Telegram bot token
 - Talk to [BotFather](https://t.me/BotFather),
@@ -78,7 +79,7 @@ Keep your token secure and store it safely, it can be used by anyone to control 
 
 * Edit .env file and add the keys
 
-`nano .env`
+`$ nano .env`
 
 ```bash 
 BOT_TOKEN=1234567890:ABCDeFGhij1k2lMNoPpQ3rstUVWwxYZ4ABB
@@ -87,21 +88,21 @@ PUBLIC_KEY=project_public_1a234567b890c12ab3c4de56f7g8h9i0_-Jkl-
 ```
 ### 4. Create a tmp directory
 
-To temporary storage user files
-`mkdir tmp`
+To temporary storage user files    
+`$ mkdir tmp`
 
 ## Usage
 ```bash
-python bot.py
+$ python bot.py
 
 2021-01-15 12:12:28,184 - apscheduler.scheduler - INFO - Scheduler started
 ```
 
 ## TODO
 
-* Add a spanish version.
-* Fix unlock feature.
-* Add sign feature *(probably inside watermark feature)*
+* [ ] Add a spanish version.
+* [ ] Fix unlock feature.
+* [ ] Add sign feature *(probably inside watermark feature)*
 
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

@@ -29,5 +29,6 @@ WAIT_WATERMARK = 2
 
 img_filter = Filters.photo | Filters.document
 text_filter = Filters.text & ~Filters.command
-not_doc_filter = ~Filters.document & ~Filters.command & ~Filters.regex(r'cancel') & ~Filters.regex(r'Cancel')
+cancel_filter = Filters.regex(r'cancel') | Filters.regex(r'Cancel')
+not_doc_filter = ~Filters.document & ~Filters.command & ~cancel_filter
 not_text_filter = ~Filters.text & ~Filters.command

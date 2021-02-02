@@ -225,7 +225,7 @@ def imgtopdf_handler():
         states={
             WAIT_FILE_IMGTOPDF: [
                 MessageHandler(img_filter, check_img),
-                MessageHandler(~img_filter, error_imgtopdf)],
+                MessageHandler(text_filter, check_text)],
             WAIT_IMGTOPDF: [
                 MessageHandler(img_filter, check_img),
                 MessageHandler(text_filter, check_text),

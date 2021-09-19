@@ -25,7 +25,8 @@ commands = ("🗄 /compress to compress a PDF file",
             "↩️ /rotatepdf to rotate (90, 180 degrees) a PDF file",
             "✂️ /splitpdf to split a PDF file according to a range",
             "🔑 /unlockpdf to unlock a protected PDF file",
-            "💧 /watermark to apply a watermark to a PDF file")
+            "💧 /watermark to apply a watermark to a PDF file",
+            "❤️ /donate")
 
 
 def start(update, context):

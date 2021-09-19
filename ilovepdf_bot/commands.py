@@ -1,10 +1,9 @@
 import os
 
 from dotenv import load_dotenv
-from telegram import ChatAction
+from telegram import ChatAction, ReplyKeyboardRemove, ParseMode
 from telegram.ext import CommandHandler, ConversationHandler, MessageHandler
 from telegram.ext.dispatcher import run_async
-from telegram.ext.filters import Filters
 
 from .constants import *
 from .ilovepdf import (love_addpagenumbers, love_compress, love_imgtopdf,
@@ -1083,3 +1082,14 @@ def watermark_handler():
     )
 
     return conv_handler
+
+# donate
+@run_async
+def donate(update):
+    update.effective_message.reply_text(
+        "Is this bot usefull for you? Do you want to donate a coffe to my mother? \n"
+        "https://www.paypal.com/donate?hosted_button_id=N374LBS72AAMA 🥰",
+        reply_markup=ReplyKeyboardRemove(),
+        parse_mode=ParseMode.MARKDOWN,
+    )
+    return ConversationHandler.END

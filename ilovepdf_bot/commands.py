@@ -124,7 +124,7 @@ def check_img(update, context):
         images.append(file_path)
 
     msg = "Send me the word *'done'* if you want the PDF file, " \
-            "or send me more images 🖼"
+          "or send me more images 🖼"
     if images:
         return ask_file(update, msg, WAIT_IMGTOPDF)
     else:
@@ -197,7 +197,7 @@ def img_to_pdf(update, images):
 
             if merged_file:
                 final_file = f"{output_dir}/{merged_file}"
-            
+
         if final_file:
             update.effective_message.chat.send_action(
                 ChatAction.UPLOAD_DOCUMENT)
@@ -498,7 +498,7 @@ def pdf_to_jpg(update, context):
             usr_msg(update=update, msg=msg, error=False)
         else:
             usr_msg(update)
-        bye(update)        
+        bye(update)
     del_tmp()
     return ConversationHandler.END
 
@@ -580,7 +580,7 @@ def check_pass(update, context):
             msg = "I received the password"
             if pdf_to_protect:
                 msg += ", please wait a moment while " \
-                    "I protect the file for you..."
+                       "I protect the file for you..."
                 usr_msg(update=update, msg=msg, error=False)
                 # protect PDF
                 protect_pdf(update, text)
@@ -588,7 +588,6 @@ def check_pass(update, context):
                 msg += ", but I still need the PDF file to protect"
                 usr_msg(update=update, msg=msg, error=False)
                 protectpdf(update, context)
-
 
 
 def protect_pdf(update, password):
@@ -1083,8 +1082,8 @@ def watermark_handler():
 
     return conv_handler
 
+
 # donate
-@run_async
 def donate(update):
     update.effective_message.reply_text(
         "Is this bot usefull for you? Do you want to donate a coffe to my mother? \n"

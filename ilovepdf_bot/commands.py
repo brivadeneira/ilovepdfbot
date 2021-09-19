@@ -1084,11 +1084,11 @@ def watermark_handler():
 
 
 # donate
-def donate(update):
-    update.effective_message.reply_text(
-        "Is this bot usefull for you? Do you want to donate a coffe to my mother? \n"
-        "https://www.paypal.com/donate?hosted_button_id=N374LBS72AAMA 🥰",
-        reply_markup=ReplyKeyboardRemove(),
-        parse_mode=ParseMode.MARKDOWN,
-    )
+def donate(update, context):
+    msg = "Is ilovepdfbot useful for you?\n" \
+          "Do you want to buy my mother a coffe? 🥰\n" \
+          "https://www.paypal.com/donate?hosted_button_id=N374LBS72AAMA"
+    usr_msg(update=update, msg=msg, error=False)
+
+    bye(update)
     return ConversationHandler.END

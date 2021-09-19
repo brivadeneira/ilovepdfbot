@@ -1082,13 +1082,3 @@ def watermark_handler():
 
     return conv_handler
 
-
-# donate
-def donate(update, context):
-    msg = "Is ilovepdfbot useful for you?\n" \
-          "Do you want to buy my mother a coffe? 🥰\n" \
-          "https://www.paypal.com/donate?hosted_button_id=N374LBS72AAMA"
-    usr_msg(update=update, msg=msg, error=False)
-
-    bye(update)
-    return ConversationHandler.END

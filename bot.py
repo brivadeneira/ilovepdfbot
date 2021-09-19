@@ -43,8 +43,18 @@ def help(update, context):
                              text='\n'.join(commands))
 
 
+def donate(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text="Is ilovepdfbot useful you?")
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text="Would you like to donate my mother a coffe? ♥")
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text="Please go to: https://www.paypal.com/donate?hosted_button_id=N374LBS72AAMA")
+
+
 start_handler = CommandHandler('start', start)
 help_handler = CommandHandler('help', help)
+donate_handler = CommandHandler('donate', donate)
 
 updater = Updater(token=token, use_context=True)
 dispatcher = updater.dispatcher

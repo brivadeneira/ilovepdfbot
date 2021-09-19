@@ -62,6 +62,7 @@ dispatcher = updater.dispatcher
 # basic handlers
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(help_handler)
+dispatcher.add_handler(donate_handler)
 
 # command handlers
 dispatcher.add_handler(compress_handler())
